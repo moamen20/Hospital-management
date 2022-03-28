@@ -14,10 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author LENOVO
- */
+
 public class Maindoctor {
     Connection con=connect.connectdb();
     ResultSet rs=null;
@@ -49,7 +46,7 @@ public class Maindoctor {
                 //String tbdata[]={PatientID,PatientName,Patientage,PatientTel};  
             } 
               else
-            {   Reception rec=new Reception() ;
+            {   Reception_gui rec=new Reception_gui() ;
                 JOptionPane.showMessageDialog(rec,"Doctor doesn't exist","Error", JOptionPane.ERROR_MESSAGE);
             }
         } 
@@ -78,7 +75,7 @@ public class Maindoctor {
                 //String tbdata[]={PatientID,PatientName,Patientage,PatientTel};  
             } 
               else
-            {   Reception rec=new Reception() ;
+            {   Reception_gui rec=new Reception_gui() ;
                 JOptionPane.showMessageDialog(rec,"Doctor doesn't exists","Error", JOptionPane.ERROR_MESSAGE);
             }
         } 
@@ -88,7 +85,7 @@ public class Maindoctor {
         return tbdata;
    }
 protected void add(String id,String name,String spec,String email,String tel)
-    { Doctoradd rec=new Doctoradd() ;
+    { Doctoradd_gui rec=new Doctoradd_gui() ;
          try{
           
             Statement stmt;
@@ -120,7 +117,7 @@ protected void add(String id,String name,String spec,String email,String tel)
                                 
     }
     protected void delete(String id)
-    { Doctoradd rec=new Doctoradd();
+    { Doctoradd_gui rec=new Doctoradd_gui();
         try{
             int P = JOptionPane.showConfirmDialog(null," Are you sure want to delete ?","Confirmation",JOptionPane.YES_NO_OPTION);
             if (P==0)
@@ -139,7 +136,7 @@ protected void add(String id,String name,String spec,String email,String tel)
     }
     
     protected void update(String id,String name,String spec,String email,String tel)
-    {Doctoradd rec=new Doctoradd();
+    {Doctoradd_gui rec=new Doctoradd_gui();
          try{
             
             String sql= "update DOCTOR set NAME='"+ name+ "',EMAIL='"+ email+ "',SPECIALIZATION=" + spec + "',TEL='" + tel+ "' where ID='" + id + "'";
@@ -154,7 +151,7 @@ protected void add(String id,String name,String spec,String email,String tel)
     }
     
     protected void login_doctor(String username,String passcode)
-    {   Doctor dr=new Doctor();
+    {   Doctor_gui dr=new Doctor_gui();
         try {
         Statement stmt;
         stmt= con.createStatement();
@@ -163,7 +160,7 @@ protected void add(String id,String name,String spec,String email,String tel)
         if(rs.next())
         {
            
-            new Doctor().setVisible(true);
+            new Doctor_gui().setVisible(true);
             
         }
         else

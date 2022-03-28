@@ -11,15 +11,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author LENOVO
- */
+
 public class Receptionist extends Users{
     
     @Override
     protected void add_user(String name,String code,String tele)
-    { Reception rec=new Reception();
+    { Reception_gui rec=new Reception_gui();
          try{
           
             Statement stmt;
@@ -50,7 +47,7 @@ public class Receptionist extends Users{
     
     @Override
      protected void login_user(String name,String code){
-     Reception res=new Reception();
+     Reception_gui res=new Reception_gui();
         try {
         Statement stmt;
         stmt= con.createStatement();
@@ -59,7 +56,7 @@ public class Receptionist extends Users{
         if(rs.next())
         {
            
-            new Reception().setVisible(true);
+            new Reception_gui().setVisible(true);
             
         }
         else

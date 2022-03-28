@@ -13,12 +13,8 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author LENOVO
- */
+
 public class PATINT{
 
     Connection con=connect.connectdb();
@@ -52,7 +48,7 @@ public class PATINT{
                 //String tbdata[]={PatientID,PatientName,Patientage,PatientTel};  
             } 
               else
-            {   Reception rec=new Reception() ;
+            {   Reception_gui rec=new Reception_gui() ;
                 JOptionPane.showMessageDialog(rec,"Patient doesn't exists","Error", JOptionPane.ERROR_MESSAGE);
             }
         } 
@@ -81,7 +77,7 @@ public class PATINT{
                 //String tbdata[]={PatientID,PatientName,Patientage,PatientTel};  
             } 
               else
-            {   Reception rec=new Reception() ;
+            {   Reception_gui rec=new Reception_gui() ;
                 JOptionPane.showMessageDialog(rec,"Patient doesn't exists","Error", JOptionPane.ERROR_MESSAGE);
             }
         } 
@@ -92,7 +88,7 @@ public class PATINT{
    }
     
     protected void add(String name,String age,String email,String tel)
-    { Patientedit rec=new Patientedit() ;
+    { Patientedit_gui rec=new Patientedit_gui() ;
       
          try{
              
@@ -118,7 +114,7 @@ public class PATINT{
                                 
     }
     protected void delete(int id)
-    { Patientedit rec=new Patientedit() ;
+    { Patientedit_gui rec=new Patientedit_gui() ;
         try{
             int P = JOptionPane.showConfirmDialog(null," Are you sure want to delete ?","Confirmation",JOptionPane.YES_NO_OPTION);
             if (P==0)
@@ -137,7 +133,7 @@ public class PATINT{
     }
     
     protected void update(int id,String name,String age,String email,int tel)
-    {Patientedit rec=new Patientedit() ;
+    {Patientedit_gui rec=new Patientedit_gui() ;
          try{
   
             String sql= "update PATIENT1 set NAME='"+name+ "',EMAIL='"+ email+ "',AGE=" + age + ",TEL="+tel+ " where ID=" + id + "";

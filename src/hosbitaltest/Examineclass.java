@@ -14,17 +14,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author LENOVO
- */
+
 public class Examineclass {
     
     Connection con=connect.connectdb();
     ResultSet rs=null;
     PreparedStatement pst=null;
     String[] tbdata = new String[4];
-    Examine exm=new Examine(); 
+    Examine_gui exm=new Examine_gui(); 
     
     protected void Save_examine(String idp,String idD,String medc,String state)
     {

@@ -13,18 +13,14 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Moamen 
- */
+
 public class Appointmentclass  {
     Connection con=connect.connectdb();
     ResultSet rs=null;
     PreparedStatement pst=null;
     String[] tbdata = new String[4];
-    Appointment app=new Appointment();
+    Appointment_gui app=new Appointment_gui();
     
     protected void make_app(String pid,String did,String date,String time)
     {

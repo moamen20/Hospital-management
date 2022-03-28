@@ -8,10 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-/**
- *
- * @ MOAMEN.N
- */
+
 public class Users {
     Connection con=connect.connectdb();
     ResultSet rs=null;

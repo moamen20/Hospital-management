@@ -19,7 +19,7 @@ public class Managerclass extends Users {
     
      @Override
      protected void add_user(String name,String code,String tele)
-    { Manager mg=new Manager();
+    { Manager_gui mg=new Manager_gui();
          try{
           
             Statement stmt;
@@ -52,7 +52,7 @@ public class Managerclass extends Users {
      
      @Override
     protected void login_user(String name,String code){
-     Manager mgr=new Manager();
+     Manager_gui mgr=new Manager_gui();
         try {
         Statement stmt;
         stmt= con.createStatement();
@@ -61,7 +61,7 @@ public class Managerclass extends Users {
         if(rs.next())
         {
            
-            new Manager().setVisible(true);
+            new Manager_gui().setVisible(true);
             
         }
         else
