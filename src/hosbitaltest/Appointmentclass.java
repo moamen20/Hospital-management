@@ -33,8 +33,7 @@ public class Appointmentclass  {
       rs=stmt.executeQuery(sql1);
       if(!rs.next()){
         JOptionPane.showMessageDialog( app, "PATIENT ID DOESN'T exists","Error", JOptionPane.ERROR_MESSAGE);
-      // P_id.setText("");
-       //P_id.requestDefaultFocus();
+
        return;
       }
             String sql= "insert into APP.APPOINTMENTS(ID_DOCTOR,ID_PATIENT,DATE,TIME)values('"+pid+"','"+ did+"','"+ date+"','" + time + "')";
@@ -96,7 +95,6 @@ public class Appointmentclass  {
                 tbdata[1]=PatientID;
                 tbdata[2]=DATE;
                 tbdata[3]=TIME;
-                //String tbdata[]={PatientID,PatientName,Patientage,PatientTel};  
             } 
               else
             {   
