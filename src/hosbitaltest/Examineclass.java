@@ -10,10 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
 
 public class Examineclass {
     
@@ -23,22 +23,21 @@ public class Examineclass {
     String[] tbdata = new String[4];
     Examine_gui exm=new Examine_gui(); 
     
-    protected void Save_examine(String idp,String idD,String medc,String state)
+    
+     protected void Save_examine(int idp,String idD,String medc,String state)
     {
       try{
           
        Statement stmt;
        stmt= con.createStatement();
        
-      String sql1="Select ID_PATIENT from APP.APPOINTMENTS where ID ='"+idp+"'";
+      String sql1="Select ID_PATIENT from APP.APPOINTMENTS where ID ="+idp+"";
       rs=stmt.executeQuery(sql1);
       if(!rs.next()){
         JOptionPane.showMessageDialog( exm, "PATIENT DOESN'T exists in Appointments","Error", JOptionPane.ERROR_MESSAGE);
-      // P_id.setText("");
-       //P_id.requestDefaultFocus();
        return;
       }
-            String sql= "insert into APP.EXAMINE(DOCTOR_ID,PATIENT_ID,DRUGS,STATE)values('"+idp+"','"+ idD+"','"+ medc+"','" + state + "')";
+            String sql= "insert into APP.EXAMINE(DOCTOR_ID,PATIENT_ID,DRUGS,STATE)values('"+idD+"',"+ idp+",'"+ medc+"','" + state + "')";
  
             pst=con.prepareStatement(sql);
             pst.execute();
@@ -50,26 +49,28 @@ public class Examineclass {
         }
     }
     
-    protected String[] searchid_Patient(String id)
+    protected Vector<String[]> searchid_Patient(int id)
     {
+        Vector<String[]>vec=new Vector<String[]>();
       try {
+          int count=0;
             Statement stmt;
             stmt= con.createStatement();
-            String sql1="Select * from APP.EXAMINE where PATIENT_ID ='"+id+"'";
+            String sql1="Select * from APP.EXAMINE where PATIENT_ID ="+id+"";
             rs=stmt.executeQuery(sql1);
-            if(rs.next()){
-            
+            while(rs.next()){
+                count++;
                 String DoctorID=String.valueOf(rs.getString("DOCTOR_ID"));
-                String PatientID=String.valueOf(rs.getString("PATIENT_ID"));
-                String DATE=String.valueOf(rs.getDate("DRUGS"));
-                String TIME=String.valueOf(rs.getString("STATE"));
+                String PatientID=String.valueOf(rs.getInt("PATIENT_ID"));
+                String DRUGS=String.valueOf(rs.getString("DRUGS"));
+                String STATE=String.valueOf(rs.getString("STATE"));
                 tbdata[0]=DoctorID;
                 tbdata[1]=PatientID;
-                tbdata[2]=DATE;
-                tbdata[3]=TIME;
-                //String tbdata[]={PatientID,PatientName,Patientage,PatientTel};  
+                tbdata[2]=DRUGS;
+                tbdata[3]=STATE;
+                vec.add(tbdata);
             } 
-              else
+            if(count==0)
             {   
                 JOptionPane.showMessageDialog(exm,"Examination doesn't exists","Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -77,28 +78,32 @@ public class Examineclass {
         catch (SQLException ex) {
            Logger.getLogger(PATINT.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return tbdata;
+        return vec;
     }
-     protected String[] searchid_doctor(String id)
+    
+    protected Vector<String[]> searchid_doctor(String id)
     {
+      Vector<String[]> vec= new Vector<String[]>();
       try {
+          int count=0;
             Statement stmt;
             stmt= con.createStatement();
             String sql1="Select * from APP.EXAMINE where DOCTOR_ID ='"+id+"'";
             rs=stmt.executeQuery(sql1);
-            if(rs.next()){
-            
+            while(rs.next()){
+                count++;
                 String DoctorID=String.valueOf(rs.getString("DOCTOR_ID"));
-                String PatientID=String.valueOf(rs.getString("PATIENT_ID"));
-                String DRUGS=String.valueOf(rs.getDate("DRUGS"));
+                String PatientID=String.valueOf(rs.getInt("PATIENT_ID"));
+                String DRUGS=String.valueOf(rs.getString("DRUGS"));
                 String STATE=String.valueOf(rs.getString("STATE"));
                 tbdata[0]=DoctorID;
                 tbdata[1]=PatientID;
                 tbdata[2]=DRUGS;
                 tbdata[3]=STATE;
                 //String tbdata[]={PatientID,PatientName,Patientage,PatientTel};  
+                vec.add(tbdata);
             } 
-              else
+              if(count==0)
             {   
                 JOptionPane.showMessageDialog(exm,"Appointment doesn't exists","Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -106,10 +111,10 @@ public class Examineclass {
         catch (SQLException ex) {
            Logger.getLogger(PATINT.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return tbdata;
+        return vec;
     }
     
-    protected String show_state(String idstate)
+    protected String show_state(int idstate)
     {
         String state = null;
          try {
@@ -117,7 +122,7 @@ public class Examineclass {
             Statement stmt;
             stmt= con.createStatement();
            
-            String sql1="Select * from APP.EXAMINE where PATIENT_ID ='"+idstate+"'";
+            String sql1="Select * from APP.EXAMINE where PATIENT_ID ="+idstate+"";
             rs=stmt.executeQuery(sql1);
             if(rs.next()){
                state=String.valueOf(rs.getString("STATE"));

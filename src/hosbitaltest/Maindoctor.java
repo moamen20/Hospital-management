@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -25,16 +26,19 @@ public class Maindoctor {
     String Doctorspec;
     String DoctorTel;
     String[] tbdata = new String[4];
+Vector<String[]> vec= new Vector<String[]>();
     
-    protected String[] Search_id(String id)
+    protected Vector<String[]> Search_id(String id)
     { 
+        Vector<String[]> vec=new Vector<String[]>();
         try {
             Statement stmt;
             stmt= con.createStatement();
             String sql1="Select * from APP.DOCTOR where ID ='"+id+"'";
             rs=stmt.executeQuery(sql1);
-            if(rs.next()){
-            
+            int count=0;
+            while(rs.next()){
+                count++;
                 DoctorID=String.valueOf(rs.getString("ID"));
                 DoctorName=String.valueOf(rs.getString("NAME"));
                 Doctorspec=String.valueOf(rs.getString("SPECIALIZATION"));
@@ -43,9 +47,10 @@ public class Maindoctor {
                 tbdata[1]=DoctorName;
                 tbdata[2]=Doctorspec;
                 tbdata[3]=DoctorTel;
-                //String tbdata[]={PatientID,PatientName,Patientage,PatientTel};  
+                //String tbdata[]={PatientID,PatientName,Patientage,PatientTel};
+                vec.add(tbdata);
             } 
-              else
+            if(count==0)
             {   Reception_gui rec=new Reception_gui() ;
                 JOptionPane.showMessageDialog(rec,"Doctor doesn't exist","Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -53,17 +58,19 @@ public class Maindoctor {
         catch (SQLException ex) {
            Logger.getLogger(PATINT.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return tbdata;
+        return vec;
    }
-    protected String[] Search_name(String name)
+    protected Vector<String[]> Search_name(String name)
     { 
+        Vector<String[]>vec=new Vector<String[]>();
         try {
             Statement stmt;
             stmt= con.createStatement();
             String sql1="Select * from APP.DOCTOR where NAME ='"+name+"'";
             rs=stmt.executeQuery(sql1);
-            if(rs.next()){
-            
+            int count=0;
+            while(rs.next()){
+                count++;
                 DoctorID=String.valueOf(rs.getString("ID"));
                 DoctorName=String.valueOf(rs.getString("NAME"));
                 Doctorspec=String.valueOf(rs.getString("SPECIALIZATION"));
@@ -73,8 +80,9 @@ public class Maindoctor {
                 tbdata[2]=Doctorspec;
                 tbdata[3]=DoctorTel;
                 //String tbdata[]={PatientID,PatientName,Patientage,PatientTel};  
+                vec.add(tbdata);
             } 
-              else
+            if(count==0)
             {   Reception_gui rec=new Reception_gui() ;
                 JOptionPane.showMessageDialog(rec,"Doctor doesn't exists","Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -82,7 +90,7 @@ public class Maindoctor {
         catch (SQLException ex) {
            Logger.getLogger(Maindoctor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return tbdata;
+        return vec;
    }
 protected void add(String id,String name,String spec,String email,String tel)
     { Doctoradd_gui rec=new Doctoradd_gui() ;

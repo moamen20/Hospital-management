@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 
 
 public class Receptionist extends Users{
+     static int idrr=1;
     
     @Override
     protected void add_user(String name,String code,String tele)
